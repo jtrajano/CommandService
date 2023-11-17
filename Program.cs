@@ -1,4 +1,5 @@
 using CommandService.Data;
+using CommandService.Interface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddDbContext<AppDbContext>(option=>{
 
-    option.UseSqlServer(builder.Configuration.GetConnectionString(""));
+    option.UseInMemoryDatabase("InMem");
 
 });
+builder.Services.AddScoped<ICommandRepo, CommandRepo>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

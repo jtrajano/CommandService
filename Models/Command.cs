@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommandService.Models
 {
-    public class Commands
+    public class Command
     {
         [Key]
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace CommandService.Models
         [ForeignKey("Platform")]
         public int PlatformId { get; set; }
 
-        public Platforms Platform { get; set; }
+        public Platform Platform { get; set; }
     }
 }

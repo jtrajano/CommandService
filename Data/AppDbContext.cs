@@ -15,19 +15,19 @@ namespace CommandService.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Platforms>()
+            modelBuilder.Entity<Platform>()
             .HasMany(m=>m.Commands)
             .WithOne(o=>o.Platform)
             .HasForeignKey(k=>k.PlatformId);
 
-            modelBuilder.Entity<Commands>()
+            modelBuilder.Entity<Command>()
             .HasOne(o=>o.Platform)
             .WithMany(m=>m.Commands)
             .HasForeignKey(k=>k.PlatformId);
 
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<Commands> Commands { get; set; }
-        public DbSet<Platforms> Platforms { get; set; }
+        public DbSet<Command> Commands { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommandService.Models
 {
-    public class Platforms
+    public class Platform
     {
         [Key]
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace CommandService.Models
         [Required]
         public int ExternalID { get; set; }
 
-        public ICollection<Commands> Commands { get; set; }  = new List<Commands>();
+        public ICollection<Command> Commands { get; set; }  = new List<Command>();
 
         
     }
