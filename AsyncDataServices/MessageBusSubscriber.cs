@@ -1,6 +1,10 @@
 
+using System.Globalization;
+using System.Text;
 using CommandService.EventProcessing;
+using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace CommandService.AsyncDataServices;
 
@@ -53,7 +57,25 @@ public class MessageBusSubscriber : BackgroundService
     }
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        throw new NotImplementedException();
+        stoppingToken.ThrowIfCancellationRequested();
+        var consumer = new EventingBasicConsumer(_channel);
+
+        consumer.Received += (ModuleHandle, ea) => 
+        {
+            Console.WriteLine("--> Event Received!");
+               var body =  ea.Body;
+               var notifcationMessage = Encoding.UTF8.GetString(body.ToArray());
+
+               _eventProcessor.ProcessEvent(notifcationMessage);
+        };
+
+        _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+
+        return Task.CompletedTask;
+
+     
+
+
     }
 
     public override void Dispose()
