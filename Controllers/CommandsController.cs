@@ -21,7 +21,7 @@ namespace CommandService.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult<IEnumerable<CommandReadDto>> GetCommandForPlatfrom(int platformId)
+        public ActionResult<IEnumerable<CommandReadDto>> GetCommandForPlatform(int platformId)
         {
             Console.WriteLine($"--> Hit GetCommandForPlatform {platformId}");
 
@@ -33,7 +33,8 @@ namespace CommandService.Controllers
 
             return Ok(commandReadDto);
         }
-        [HttpGet("{commandId}", Name = "GetCommandPlatform")]
+
+        [HttpGet("{commandId}", Name = "GetCommandForPlatform")]
         public ActionResult<CommandReadDto> GetCommandForPlatform(int platformId, int commandId) {
             Console.WriteLine($"--> Hit GetCommandForPlatform {platformId}/ {commandId}");
 
@@ -72,7 +73,7 @@ namespace CommandService.Controllers
 
 
 
-            return CreatedAtRoute(nameof(GetCommandForPlatform), new { platformId, command.Id}, commandReadDto);
+            return CreatedAtRoute(nameof(GetCommandForPlatform), new { platformId = platformId,commandId = command.Id }, commandReadDto);
 
         }
 

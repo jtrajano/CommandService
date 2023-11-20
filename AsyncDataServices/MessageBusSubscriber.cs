@@ -22,6 +22,8 @@ public class MessageBusSubscriber : BackgroundService
     {
         _eventProcessor = eventProcessor;
         _config = config;
+
+        InitializeRabbitMQ();
     }
     private void InitializeRabbitMQ(){
             var factory = new ConnectionFactory()

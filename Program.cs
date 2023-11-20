@@ -16,9 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(option=>{
     option.UseInMemoryDatabase("InMem");
 
 });
+builder.Services.AddHostedService<MessageBusSubscriber>();
 builder.Services.AddScoped<ICommandRepo, CommandRepo>();
 builder.Services.AddSingleton<IEventProcessor,EventProcessor>();
-builder.Services.AddHostedService<MessageBusSubscriber>();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

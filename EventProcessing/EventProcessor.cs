@@ -31,6 +31,7 @@ namespace CommandService.EventProcessing
             {
                 case EventType.PlatformPublished:
                     //todo
+                    addPlatform(message);
                     break;
                 default:
                     break;
@@ -52,6 +53,7 @@ namespace CommandService.EventProcessing
                     {
                         repo.CreatePlatform(plat);
                         repo.SaveChanges();
+                        Console.WriteLine("Platform Added!");
                     }   
                     else
                     {
