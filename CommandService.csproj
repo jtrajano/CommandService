@@ -27,5 +27,9 @@
     </PackageReference>
     <PackageReference Include="RabbitMQ.Client" Version="6.7.0" />
   </ItemGroup>
+    
+  <ItemGroup>
+    <Protobuf Include = "Protos\platforms.proto" GrpcServices="Client" />
+  </ItemGroup>
 
 </Project>
