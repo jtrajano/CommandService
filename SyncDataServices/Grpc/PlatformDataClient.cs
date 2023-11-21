@@ -19,7 +19,13 @@ namespace CommandService.SyncDataServices.Grpc
         {
             Console.WriteLine($"--> Calling Grpc service {_configuration["GrpcPlatform"]}");
 
-            var channel = GrpcChannel.ForAddress(_configuration["GrpcPlatform"]);
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcPlatform"],
+                new GrpcChannelOptions{
+
+                    HttpHandler = new HttpClientHandler()
+                }
+            
+            );
 
             var client = new GrpcPlatform.GrpcPlatformClient(channel);
             var request = new GetAllRequest(); 

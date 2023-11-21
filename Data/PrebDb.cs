@@ -16,9 +16,11 @@ namespace CommandService.Data
 
             {
                 var grpcClient = serviceScope.ServiceProvider.GetService<IPlatformDataClient>();
-                var platforms = grpcClient.ReturnAllPlatforms();    
-
-                SeedData(serviceScope.ServiceProvider.GetService<ICommandRepo>(),platforms);
+                var platforms = grpcClient.ReturnAllPlatforms();
+                if (platforms.Any())
+                {
+                    SeedData(serviceScope.ServiceProvider.GetService<ICommandRepo>(), platforms);
+                }
             }
         }
 
@@ -28,10 +30,12 @@ namespace CommandService.Data
                 foreach (var plat in platforms)
                 {
                     if(!repo.ExternalPlatformExist(plat.ExternalID));
-                        {
-                            repo.CreatePlatform(plat);
-                        }
+                    {
+                        repo.CreatePlatform(plat);
+                    }
+                    
                 }
+            repo.SaveChanges();
 
         }
     }
